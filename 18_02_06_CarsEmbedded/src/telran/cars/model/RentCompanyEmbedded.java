@@ -22,8 +22,9 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 
 	@Override
 	public CarsReturnCode addCar(Car car) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return cars.putIfAbsent(car.getRegNumber(),
+				car)==null?CarsReturnCode.OK:CarsReturnCode.CAR_EXISTS;
 	}
 
 	@Override
