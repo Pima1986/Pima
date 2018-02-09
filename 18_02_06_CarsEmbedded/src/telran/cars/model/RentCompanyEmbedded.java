@@ -212,11 +212,10 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 				.filter(c->!c.isInUse()).collect(Collectors.toList());
 	}
 	private List<RentRecord> getRecordsForDelete(LocalDate returnedDateDelete) {
-		SortedMap<LocalDate, List<RentRecord>> sortedMap=
-				returnedRecords.headMap(returnedDateDelete);
-		List<RentRecord>res=new LinkedList<>();
-		sortedMap.values().forEach(res::addAll);
-		return res;
+		
+		return returnedRecords.headMap(returnedDateDelete).values().stream()
+				.flatMap(List::stream).filter(r->getCar(r.getCarNumber()).isFlRemoved())
+				.collect(Collectors.toList());
 	}
 
 	private void deleteCar(Car car){
@@ -225,8 +224,9 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 	
 	@Override
 	public List<Driver> getCarDrivers(String carNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Driver> res=new ArrayList<>();
+		carRecords.get(carNumber).forEach(r->res.add(getDriver(r.getLicenseId())));
+		return res;
 	}
 
 	@Override
