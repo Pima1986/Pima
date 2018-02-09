@@ -202,9 +202,15 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 	public List<Car> clear(LocalDate currentDate, int days) {
 		LocalDate returnedDateDelete=currentDate.minusDays(days);
 		List<RentRecord> recordsForDelete=getRecordsForDelete(returnedDateDelete);
+		recordsForDelete.forEach(this::deleteFromReturnedRecords);
 		List<Car> carsForDelete=getCarsForDelete(recordsForDelete);
 		carsForDelete.forEach(this::deleteCar);
 		return carsForDelete;
+	}
+	private void deleteFromReturnedRecords(RentRecord record){
+		//getting list of records returned on record.getReturnDate() date
+		//removing record from the list
+		returnedRecords.get(record.getReturnDate()).remove(record);
 	}
 	private List<Car> getCarsForDelete(List<RentRecord> recordsForDelete) {
 		
@@ -219,9 +225,22 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 	}
 
 	private void deleteCar(Car car){
-		
+		//car should be removed from cars and all related records from carRecords and driverRecords
+		//removing from carRecords and getting records that should be removed from driverRecords
+		String carNumber=car.getRegNumber();
+		List<RentRecord> removedRecords=carRecords.remove(carNumber);
+		removeFromDriverRecords(removedRecords);
+		//remove from cars
+		cars.remove(carNumber);
 	}
 	
+	private void removeFromDriverRecords(List<RentRecord> removedRecords) {
+		//for each record: getting licenseId, getting list of records for appropriated driver,
+		//removing from the list
+		removedRecords.forEach(r->driverRecords.get(r.getLicenseId()).remove(r));
+		
+	}
+
 	@Override
 	public List<Driver> getCarDrivers(String carNumber) {
 		List<Driver> res=new ArrayList<>();
