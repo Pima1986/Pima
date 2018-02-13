@@ -244,16 +244,19 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 	@Override
 	public List<Driver> getCarDrivers(String carNumber) {
 		List<Driver> res=new ArrayList<>();
-		carRecords.get(carNumber).forEach(r->res.add(getDriver(r.getLicenseId())));
+		if (!carRecords.isEmpty()) {
+			carRecords.get(carNumber).forEach(r -> res.add(getDriver(r.getLicenseId())));
+		}
 		return res;
 	}
 
 	@Override
 	public List<Car> getDriverCars(long licenseId) {
 		List<Car> res=new ArrayList<>();
-		 driverRecords.get(licenseId)
-				.forEach(r->res.add(getCar(r.getCarNumber())));
-		 return res;
+		 if (!driverRecords.isEmpty()) {
+			driverRecords.get(licenseId).forEach(r -> res.add(getCar(r.getCarNumber())));
+		}
+		return res;
 	}
 
 	@Override
