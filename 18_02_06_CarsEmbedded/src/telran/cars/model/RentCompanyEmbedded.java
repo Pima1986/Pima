@@ -250,26 +250,26 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 
 	@Override
 	public List<Car> getDriverCars(long licenseId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Car> res=new ArrayList<>();
+		 driverRecords.get(licenseId)
+				.forEach(r->res.add(getCar(r.getCarNumber())));
+		 return res;
 	}
 
 	@Override
 	public Stream<Car> getAllCars() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return cars.values().stream();
 	}
 
 	@Override
 	public Stream<Driver> getAllDrivers() {
-		// TODO Auto-generated method stub
-		return null;
+		return drivers.values().stream();
 	}
 
 	@Override
 	public Stream<RentRecord> getAllRecords() {
-		// TODO Auto-generated method stub
-		return null;
+		return carRecords.values().stream().flatMap(List::stream);
 	}
 
 }
