@@ -9,7 +9,7 @@ public class CarsRandomAppl {
 		IRentCompany rentCompany=new RentCompanyEmbedded();
 		RandomRentCompanyController controller=
 		new RandomRentCompanyController(rentCompany);
-		controller.createRentCompany(4);
+		controller.createRentCompany(2);
 		rentCompany.getAllRecords().limit(200).forEach(System.out::println);
 
 	}
