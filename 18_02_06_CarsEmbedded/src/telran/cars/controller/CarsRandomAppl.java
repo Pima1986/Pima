@@ -16,7 +16,7 @@ public class CarsRandomAppl {
 		IRentCompany rentCompany=new RentCompanyEmbedded();
 		RandomRentCompanyController controller=
 		new RandomRentCompanyController(rentCompany);
-		controller.createRentCompany(3);
+		controller.createRentCompany(1);
 		System.out.println("most popular models for age less than 31");
 		displayMostPopularModels(rentCompany,0,31);
 		System.out.println("\nmost popular models for age from 31 to 45");
