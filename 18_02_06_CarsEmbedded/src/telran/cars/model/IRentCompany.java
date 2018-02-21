@@ -34,5 +34,6 @@ public interface IRentCompany {
 	Stream<Car> getAllCars();
 	Stream<Driver> getAllDrivers();
 	Stream<RentRecord> getAllRecords();
+	List<String> getAllModels();
 
 }

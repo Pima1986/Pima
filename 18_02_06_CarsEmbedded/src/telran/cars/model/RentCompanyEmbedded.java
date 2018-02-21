@@ -275,4 +275,12 @@ private TreeMap<LocalDate,List<RentRecord>> returnedRecords=new TreeMap<>();
 		return carRecords.values().stream().flatMap(List::stream);
 	}
 
+	@Override
+	public List<String> getAllModels() {
+		
+		return models.values().stream()
+				.map(Model::getModelName)
+				.collect(Collectors.toList());
+	}
+
 }
